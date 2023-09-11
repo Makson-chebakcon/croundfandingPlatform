@@ -1,0 +1,73 @@
+server:
+  port: 8080
+
+application:
+  port: ${PORT}
+  hostname: ${HOST_NAME}
+
+minio:
+  access-key: ${MINIO_ACCESS_KEY}
+  secret-key: ${MINIO_SECRET_KEY}
+  bucket: ${MINIO_BUCKET}
+  url: ${MINIO_URL}
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      resolve-lazily: true
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  mail:
+    host: smtp.yandex.ru
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    port: 465
+    protocol: smtps
+  flyway:
+    enabled: true
+
+
+tokens:
+  access-secret-key: access-secret-key-access-secret-key-access-secret-key-access-secret-key
+  refresh-secret-key: refresh-secret-key-refresh-secret-key-refresh-secret-key-refresh-secret-key
+  access-lifetime-min: 30
+  refresh-lifetime-days: 30
+
+admin:
+  email: admin@domain.org
+  password: 123456789
+
+security:
+  permit-all:
+    endpoints:
+      - pattern: /api/v1/auth/login
+        method: POST
+      - pattern: /api/v1/auth/register
+        method: POST
+      - pattern: /api/v1/auth/tokens
+        method: POST
+      - pattern: /api/v1/profiles/reset-password
+        method: POST
+      - pattern: /api/v1/confirm-email/**
+        method: GET
+      - pattern: /api/v1/files/**
+        method: POST
+      - pattern: /api/v1/files/**
+        method: GET
+      - pattern: /api/v1/projects/search
+        method: POST
+      - pattern: /api/v1/projects/*
+        method: GET
+      - pattern: /api/v1/profiles/*
+        method: GET
